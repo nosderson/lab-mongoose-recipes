@@ -4,7 +4,7 @@ import UserModel from '../model/user.model.js'
 
 const recipeRoute = express.Router()
 
-recipeRoute.post('/create:userId', async (req, res) => {
+recipeRoute.post('/create/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
         const newRecipe = await RecipeModel.create({ ...req.body, creator: userId })
