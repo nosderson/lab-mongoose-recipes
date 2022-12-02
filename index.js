@@ -4,7 +4,8 @@ import * as dotenv from "dotenv";
 
 // Import of the model Recipe from './models/Recipe.model.js'
 import connect from "./config/db.config.js";
-import recipeRoute from './routes/recipe.routes.js';// Import of the data from './data.json'
+import recipeRoute from './routes/recipe.routes.js';
+import userRoute from './routes/user.routes.js';
 
 //habilitar o servidor a ter variáveis de ambiente
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 connect()
 
 app.use("/recipe", recipeRoute);
+app.use('/user', userRoute);
 
 // SERVIDOR RODANDO 
 app.listen(process.env.PORT, () => {

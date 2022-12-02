@@ -1,20 +1,30 @@
 import express from 'express'
 import RecipeModel from '../model/recipe.model.js'
+import UserModel from '../model/user.model.js'
 
 const recipeRoute = express.Router()
 
-recipeRoute.post('/new', async (req, res) => {
+recipeRoute.post('/create:userId', async (req, res) => {
     try {
-        const form = req.body;
-        const newRecipe = await RecipeModel.create(form)
+        const { userId } = req.params;
+        const newRecipe = await RecipeModel.create({ ...req.body, creator: userId })
+        await UserModel.findByIdAndUpdate(
+            userId,
+            {
+                $push: {
+                    recipes: newRecipe._id
+                }
+            },
+            { new: true, runValidators: true }
+        )
         return res.status(201).json(newRecipe)
     } catch (error) {
         console.log(error)
         res.status(500).json(error.errors)
     }
 })
-
-recipeRoute.post('/insert-many', async (req, res) => {
+/*
+recipeRoute.post('/create-many', async (req, res) => {
     try {
         const form = req.body;
         await RecipeModel.insertMany(form)
@@ -25,10 +35,10 @@ recipeRoute.post('/insert-many', async (req, res) => {
         res.status(500).json(error.errors)
     }
 })
-
+*/
 recipeRoute.get('/all', async (req, res) => {
     try {
-        const allRecipes = await RecipeModel.find({})
+        const allRecipes = await RecipeModel.find({}).populate('users')
         return res.status(200).json(allRecipes)
     } catch (error) {
         console.log(error)
@@ -36,36 +46,44 @@ recipeRoute.get('/all', async (req, res) => {
     }
 })
 
-recipeRoute.delete('/delete/:id', async (req, res) => {
+recipeRoute.delete('/delete/:recipeId', async (req, res) => {
     try {
-        const { id } = req.params
-        const deletedRecipe = await RecipeModel.findByIdAndDelete(id)
+        const { recipeId } = req.params
+        const deletedRecipe = await RecipeModel.findByIdAndDelete(recipeId)
         if (!deletedRecipe) {
             return res.status(400).json({ msg: "Receita não encontrada!" });
-          }
-          const allRecipes = await RecipeModel.find({})
-          return res.status(200).json(allRecipes)
+        }
+        await UserModel.findByIdAndUpdate(
+            deletedRecipe.creator,
+            {
+                $pull: {
+                    recipes: id,
+                }
+            },
+            { new: true, runValidators: true }
+        )
+        return res.status(204)
     } catch (error) {
         console.log(error)
         res.status(500).json(error.errors)
     }
 })
 
-recipeRoute.put('/update/:id', async (req, res) => {
+recipeRoute.put('/update/:recipeId', async (req, res) => {
     try {
-        const { id } = req.params
-        const updatedRecipe = await RecipeModel.findByIdAndUpdate(
-            id,
+        const { recipeId } = req.params
+        await RecipeModel.findByIdAndUpdate(
+            recipeId,
             { ...req.body },
             { new: true, runValidators: true }
         )
-        return res.status(201).json(updatedRecipe)
+        const recipe = await ProcessoModel.findById(id);
+        return res.status(201).json(recipe)
     } catch (error) {
         console.log(error)
         res.status(500).json(error.errors)
     }
 })
-
 
 export default recipeRoute
 

@@ -14,8 +14,7 @@
     "cuisine": "Asian",
     "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
-    "duration": 40,
-    "creator": "Chef LePapu"
+    "duration": 40
   },
   {
     "title": "Orange and Milk-Braised Pork Carnitas",
@@ -34,8 +33,7 @@
     "cuisine": "American",
     "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
-    "duration": 160,
-    "creator": "Chef John"
+    "duration": 160
   },
   {
     "title": "Carrot Cake",
@@ -57,8 +55,7 @@
     "cuisine": "International",
     "dishType": "dessert",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3605684.jpg",
-    "duration": 130,
-    "creator": "Chef Nadia"
+    "duration": 130
   },
   {
     "title": "Rigatoni alla Genovese",
@@ -73,8 +70,7 @@
     "cuisine": "Italian",
     "dishType": "main_course",
     "image": "https://images.media-allrecipes.com/userphotos/720x405/3489951.jpg",
-    "duration": 220,
-    "creator": "Chef Luigi"
+    "duration": 220
   },
   {
     "title": "Chocolate Chip Cookies",
@@ -89,7 +85,6 @@
     "cuisine": "French",
     "dishType": "dessert",
     "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F4398987.jpg&w=596&h=399.32000000000005&c=sc&poi=face&q=85",
-    "duration": 30,
-    "creator": "Chef Jennifer"
+    "duration": 30
   }
 ]
