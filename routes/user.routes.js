@@ -65,7 +65,7 @@ userRoute.delete('/delete/:userId', async (req, res) => {
             deleteById.recipes,
             {
                 $pull: {
-                    creator: id,
+                    creator: userId,
                 }
             },
             { new: true, runValidators: true }

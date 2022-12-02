@@ -57,7 +57,7 @@ recipeRoute.delete('/delete/:recipeId', async (req, res) => {
             deletedRecipe.creator,
             {
                 $pull: {
-                    recipes: id,
+                    recipes: recipeId,
                 }
             },
             { new: true, runValidators: true }
@@ -77,7 +77,7 @@ recipeRoute.put('/update/:recipeId', async (req, res) => {
             { ...req.body },
             { new: true, runValidators: true }
         )
-        const recipe = await ProcessoModel.findById(id);
+        const recipe = await ProcessoModel.findById(recipeId);
         return res.status(201).json(recipe)
     } catch (error) {
         console.log(error)
